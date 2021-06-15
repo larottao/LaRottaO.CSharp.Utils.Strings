@@ -1,0 +1,11 @@
+C:\Repos.LaRottaO\LaRottaO.CSharp.Utis.Strings\LaRottaO.CSharp.UtilidadesStrings\bin\Debug\LaRottaO.CSharp.UtilidadesStrings.dll
+C:\Repos.LaRottaO\LaRottaO.CSharp.Utis.Strings\LaRottaO.CSharp.UtilidadesStrings\bin\Debug\LaRottaO.CSharp.UtilidadesStrings.pdb
+C:\Repos.LaRottaO\LaRottaO.CSharp.Utis.Strings\LaRottaO.CSharp.UtilidadesStrings\obj\Debug\LaRottaO.CSharp.UtilsStrings.csproj.CoreCompileInputs.cache
+C:\Repos.LaRottaO\LaRottaO.CSharp.Utis.Strings\LaRottaO.CSharp.UtilidadesStrings\obj\Debug\LaRottaO.CSharp.UtilidadesStrings.dll
+C:\Repos.LaRottaO\LaRottaO.CSharp.Utis.Strings\LaRottaO.CSharp.UtilidadesStrings\obj\Debug\LaRottaO.CSharp.UtilidadesStrings.pdb
+C:\Repos.LaRottaO\LaRottaO.CSharp.Utils.Strings\LaRottaO.CSharp.UtilidadesStrings\bin\Debug\LaRottaO.CSharp.UtilsStrings.dll
+C:\Repos.LaRottaO\LaRottaO.CSharp.Utils.Strings\LaRottaO.CSharp.UtilidadesStrings\bin\Debug\LaRottaO.CSharp.UtilsStrings.pdb
+C:\Repos.LaRottaO\LaRottaO.CSharp.Utils.Strings\LaRottaO.CSharp.UtilidadesStrings\obj\Debug\LaRottaO.CSharp.UtilsStrings.csprojAssemblyReference.cache
+C:\Repos.LaRottaO\LaRottaO.CSharp.Utils.Strings\LaRottaO.CSharp.UtilidadesStrings\obj\Debug\LaRottaO.CSharp.UtilsStrings.csproj.CoreCompileInputs.cache
+C:\Repos.LaRottaO\LaRottaO.CSharp.Utils.Strings\LaRottaO.CSharp.UtilidadesStrings\obj\Debug\LaRottaO.CSharp.UtilsStrings.dll
+C:\Repos.LaRottaO\LaRottaO.CSharp.Utils.Strings\LaRottaO.CSharp.UtilidadesStrings\obj\Debug\LaRottaO.CSharp.UtilsStrings.pdb
