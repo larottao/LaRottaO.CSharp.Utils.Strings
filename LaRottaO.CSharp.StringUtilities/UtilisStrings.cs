@@ -8,9 +8,10 @@ namespace LaRottaO.CSharp.StringUtilities
     {
         /// <summary>
         ///
-        /// A collection of useful methods for String manipulation
+        /// A collection of useful methods for String manipulation taken from the Internet
         ///
-        /// 2021 06 14
+        /// 2021 06 14 - Initial commit
+        /// 2021 10 08 - Improved repeated whitespace removal
         ///
         /// by Felipe La Rotta
         ///
@@ -97,7 +98,9 @@ namespace LaRottaO.CSharp.StringUtilities
 
         public static String removeRepeatedWhitespaces(String argString)
         {
-            return Regex.Replace(argString, @"\s+", " ");
+            RegexOptions options = RegexOptions.None;
+            Regex regex = new Regex("[ ]{2,}", options);
+            return regex.Replace(argString, " ");
         }
 
         public static string removeDigitsFromString(string argString)
