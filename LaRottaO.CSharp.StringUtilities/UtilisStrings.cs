@@ -11,9 +11,10 @@ namespace LaRottaO.CSharp.StringUtilities
         /// A collection of useful methods for String manipulation taken from the Internet
         ///
         /// 2021 06 14 - Initial commit
-        /// 2021 10 08 - Improved repeated whitespace removal
+        /// 2021 10 08 - Improved repeated whitespace removal by https://stackoverflow.com/users/13913/patrick-desjardins
+        /// 2021 10 09 - Added MakeValidFileName by https://stackoverflow.com/users/104672/andre
         ///
-        /// by Felipe La Rotta
+        /// other code by Felipe La Rotta
         ///
         /// </summary>
         ///
@@ -21,6 +22,14 @@ namespace LaRottaO.CSharp.StringUtilities
         private UtilsStrings()
         {
             //Not implemented
+        }
+
+        private static string MakeValidFileName(string name)
+        {
+            string invalidChars = System.Text.RegularExpressions.Regex.Escape(new string(System.IO.Path.GetInvalidFileNameChars()));
+            string invalidRegStr = string.Format(@"([{0}]*\.+$)|([{0}]+)", invalidChars);
+
+            return System.Text.RegularExpressions.Regex.Replace(name, invalidRegStr, "_");
         }
 
         public static String getStringBetweenStrings(string argOpeningString, string argClosingString, string argBaseText)
@@ -106,6 +115,13 @@ namespace LaRottaO.CSharp.StringUtilities
         public static string removeDigitsFromString(string argString)
         {
             return Regex.Replace(argString, @"\d", "");
+        }
+
+        public static List<String> removeStringFromList(List<String> originalList, String stringToRemove)
+        {
+            originalList.RemoveAll(u => u.Contains(stringToRemove));
+
+            return originalList;
         }
     }
 }
