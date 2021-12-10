@@ -6,7 +6,6 @@ C:\Repos.LaRottaO\LaRottaO.CSharp.Utils.Strings\LaRottaO.CSharp.UtilidadesString
 C:\Repos.LaRottaO\LaRottaO.CSharp.Utils.Strings\LaRottaO.CSharp.UtilidadesStrings\obj\Debug\LaRottaO.CSharp.StringUtilities.pdb
 C:\Repositorios\LaRottaO.CSharp.Utils.Strings\LaRottaO.CSharp.StringUtilities\bin\Debug\LaRottaO.CSharp.StringUtilities.dll
 C:\Repositorios\LaRottaO.CSharp.Utils.Strings\LaRottaO.CSharp.StringUtilities\bin\Debug\LaRottaO.CSharp.StringUtilities.pdb
-C:\Repositorios\LaRottaO.CSharp.Utils.Strings\LaRottaO.CSharp.StringUtilities\obj\Debug\LaRottaO.CSharp.StringUtilities.csproj.AssemblyReference.cache
 C:\Repositorios\LaRottaO.CSharp.Utils.Strings\LaRottaO.CSharp.StringUtilities\obj\Debug\LaRottaO.CSharp.StringUtilities.csproj.CoreCompileInputs.cache
 C:\Repositorios\LaRottaO.CSharp.Utils.Strings\LaRottaO.CSharp.StringUtilities\obj\Debug\LaRottaO.CSharp.StringUtilities.dll
 C:\Repositorios\LaRottaO.CSharp.Utils.Strings\LaRottaO.CSharp.StringUtilities\obj\Debug\LaRottaO.CSharp.StringUtilities.pdb

@@ -117,6 +117,14 @@ namespace LaRottaO.CSharp.StringUtilities
             return Regex.Replace(argString, @"\d", "");
         }
 
+        public static String removeRepeatedCharacter(String originalText, String characterToReplace)
+        {
+            RegexOptions options = RegexOptions.None;
+            Regex regex = new Regex("[" + characterToReplace + "]{2,}", options);
+            originalText = regex.Replace(originalText, characterToReplace);
+            return originalText;
+        }
+
         public static List<String> removeStringFromList(List<String> originalList, String stringToRemove)
         {
             originalList.RemoveAll(u => u.Contains(stringToRemove));
