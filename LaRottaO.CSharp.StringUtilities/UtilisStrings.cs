@@ -131,5 +131,26 @@ namespace LaRottaO.CSharp.StringUtilities
 
             return originalList;
         }
+
+        public static Boolean lineContainsConsecutiveWords(String line, String[] words)
+        {
+            int ultimaPosicion = 0;
+
+            foreach (String texto in words)
+            {
+                int posActual = line.IndexOf(texto, ultimaPosicion);
+
+                if (posActual > -1)
+                {
+                    ultimaPosicion = posActual;
+                }
+                else
+                {
+                    return false;
+                }
+            }
+
+            return true;
+        }
     }
 }
