@@ -1,12 +1,11 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
 using System.Text;
 using System.Text.RegularExpressions;
 
 namespace LaRottaO.CSharp.StringUtilities
 {
-    public class UtilsStrings
+    public static class UtilsStrings
     {
         /// <summary>
         ///
@@ -21,20 +20,15 @@ namespace LaRottaO.CSharp.StringUtilities
         /// </summary>
         ///
 
-        public UtilsStrings()
-        {
-            //Not implemented
-        }
-
-        public string MakeValidFileName(string name)
+        public static string makeValidFileName(string argInvalidName)
         {
             string invalidChars = System.Text.RegularExpressions.Regex.Escape(new string(System.IO.Path.GetInvalidFileNameChars()));
             string invalidRegStr = string.Format(@"([{0}]*\.+$)|([{0}]+)", invalidChars);
 
-            return System.Text.RegularExpressions.Regex.Replace(name, invalidRegStr, "_");
+            return System.Text.RegularExpressions.Regex.Replace(argInvalidName, invalidRegStr, "_");
         }
 
-        public String getStringBetweenStrings(string argOpeningString, string argClosingString, string argBaseText)
+        public static String getStringBetweenStrings(string argOpeningString, string argClosingString, string argBaseText)
         {
             if (argBaseText == null)
             {
@@ -60,7 +54,7 @@ namespace LaRottaO.CSharp.StringUtilities
             return argBaseText.Substring(posicionIni, posicionFin - posicionIni);
         }
 
-        public List<string> getStringsBetweenStrings(string argOpeningString, string argClosingString, string argBaseText)
+        public static List<string> getStringsBetweenStrings(string argOpeningString, string argClosingString, string argBaseText, Boolean trimResult = false)
         {
             try
             {
@@ -69,7 +63,7 @@ namespace LaRottaO.CSharp.StringUtilities
                     return null;
                 }
 
-                List<string> listElementsFound = new List<string>();
+                List<string> foundElementsList = new List<string>();
 
                 int startingIndex = 0;
                 int endingIndex = 0;
@@ -84,7 +78,16 @@ namespace LaRottaO.CSharp.StringUtilities
                     {
                         endingIndex = startingIndex + argBaseText.ToLower().Substring(startingIndex).IndexOf(argClosingString.ToLower());
 
-                        listElementsFound.Add(argBaseText.Substring(startingIndex + argOpeningString.Length, endingIndex - startingIndex - argOpeningString.Length));
+                        String foundElement = argBaseText.Substring(startingIndex + argOpeningString.Length, endingIndex - startingIndex - argOpeningString.Length);
+
+                        if (trimResult)
+                        {
+                            foundElementsList.Add(foundElement.Trim());
+                        }
+                        else
+                        {
+                            foundElementsList.Add(foundElement);
+                        }
 
                         argBaseText = argBaseText.Substring(endingIndex + argClosingString.Length);
                     }
@@ -94,7 +97,7 @@ namespace LaRottaO.CSharp.StringUtilities
                     }
                 }
 
-                return listElementsFound;
+                return foundElementsList;
             }
             catch
             {
@@ -102,45 +105,45 @@ namespace LaRottaO.CSharp.StringUtilities
             }
         }
 
-        public String removeAllWhitespaces(String argString)
+        public static String removeAllWhitespaces(String argString)
         {
             return string.Join("", argString.Split(default(string[]), StringSplitOptions.RemoveEmptyEntries));
         }
 
-        public String removeRepeatedWhitespaces(String argString)
+        public static String removeRepeatedWhitespaces(String argString)
         {
             RegexOptions options = RegexOptions.None;
             Regex regex = new Regex("[ ]{2,}", options);
             return regex.Replace(argString, " ");
         }
 
-        public string removeDigitsFromString(string argString)
+        public static string removeDigitsFromString(string argString)
         {
             return Regex.Replace(argString, @"\d", "");
         }
 
-        public String removeRepeatedCharacter(String originalText, String characterToReplace)
+        public static String removeRepeatedCharacter(String orgOiginalText, String argCharacterToReplace)
         {
             RegexOptions options = RegexOptions.None;
-            Regex regex = new Regex("[" + characterToReplace + "]{2,}", options);
-            originalText = regex.Replace(originalText, characterToReplace);
-            return originalText;
+            Regex regex = new Regex("[" + argCharacterToReplace + "]{2,}", options);
+            orgOiginalText = regex.Replace(orgOiginalText, argCharacterToReplace);
+            return orgOiginalText;
         }
 
-        public List<String> removeStringFromList(List<String> originalList, String stringToRemove)
+        public static List<String> removeStringFromList(List<String> argOriginalList, String argStringToRemove)
         {
-            originalList.RemoveAll(u => u.Contains(stringToRemove));
+            argOriginalList.RemoveAll(u => u.Contains(argStringToRemove));
 
-            return originalList;
+            return argOriginalList;
         }
 
-        public Boolean lineContainsConsecutiveWords(String line, String[] words)
+        public static Boolean checkIfLineContainsConsecutiveWords(String argLine, String[] argWordsArray)
         {
             int lastPos = 0;
 
-            foreach (String texto in words)
+            foreach (String texto in argWordsArray)
             {
-                int searchResult = line.ToLower().IndexOf(texto.ToLower(), lastPos);
+                int searchResult = argLine.ToLower().IndexOf(texto.ToLower(), lastPos);
 
                 if (searchResult > -1)
                 {
@@ -155,29 +158,25 @@ namespace LaRottaO.CSharp.StringUtilities
             return true;
         }
 
-        public String getNumericValueAfterWord(String line, String word)
+        public static String getNumericValueAfterWord(String argLine, String argWord)
         {
-            if (line.IndexOf(word) == -1)
+            //EXAMPLE:
+            //Clg:5625484734
+            // Result: 5625484734
+
+            if (argLine.IndexOf(argWord) == -1)
             {
                 return null;
             }
 
-            int cursorPosition = line.IndexOf(word) + word.Length;
-
-            ;
-
-            //[W]|2022-02-02 16:41:23.822587|140710980351744|[CALL-SCF]-->[BNR]Sending Authentication Req|Cld:5577504994|Clg:5625484734|LocNum:5294100005980|Srvky:123, SessionId:3557010210291752, <UserId: 22325>|CapCallSl.cpp|buildAuthenticationReq|2844
-
-            ;
+            int cursorPosition = argLine.IndexOf(argWord) + argWord.Length;
 
             StringBuilder sbNumericResult = new StringBuilder();
             Boolean noMoreNumbersFound = false;
 
-            ;
-
             while (!noMoreNumbersFound)
             {
-                String candidate = line.Substring(cursorPosition, 1);
+                String candidate = argLine.Substring(cursorPosition, 1);
 
                 int dummy = 0;
 
@@ -190,15 +189,13 @@ namespace LaRottaO.CSharp.StringUtilities
                     noMoreNumbersFound = true;
                 }
 
-                if (cursorPosition == line.Length)
+                if (cursorPosition == argLine.Length)
                 {
                     noMoreNumbersFound = true;
                 }
 
                 cursorPosition = cursorPosition + 1;
             }
-
-            ;
 
             return sbNumericResult.ToString().Trim();
         }
