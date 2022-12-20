@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Text;
 using System.Text.RegularExpressions;
 
@@ -54,54 +55,89 @@ namespace LaRottaO.CSharp.StringUtilities
             return argBaseText.Substring(posicionIni, posicionFin - posicionIni);
         }
 
-        public static List<string> getStringsBetweenStrings(string argOpeningString, string argClosingString, string argBaseText, Boolean trimResult = false)
+        public static List<String> getStringsBetweenStrings(String argOpeningString1, String argClosingString1, String argBaseText1, Boolean trimResult = false)
         {
             try
             {
-                if (argBaseText == null)
+                if (argBaseText1 == null ||
+                    argBaseText1.Length < 3 ||
+                    argOpeningString1.Length == 0 ||
+                    argClosingString1.Length == 0)
                 {
-                    return null;
+                    return new List<String>();
                 }
 
-                List<string> foundElementsList = new List<string>();
+                String baseText = argBaseText1.ToLower();
+                String openingString = argOpeningString1.ToLower();
+                String closingString = argClosingString1.ToLower();
 
-                int startingIndex = 0;
-                int endingIndex = 0;
+                Debug.WriteLine("opening string:" + argOpeningString1);
+                Debug.WriteLine("closing string:" + argClosingString1);
 
-                bool pendingToCheck = false;
-
-                while (!pendingToCheck)
+                if (!baseText.Contains(openingString))
                 {
-                    startingIndex = argBaseText.ToLower().IndexOf(argOpeningString.ToLower());
+                    Debug.WriteLine("getStringsBetweenStrings: not even 1 opening string found");
+                    return new List<string>();
+                }
 
-                    if (startingIndex != -1)
+                if (!baseText.Contains(closingString))
+                {
+                    Debug.WriteLine("getStringsBetweenStrings: not even 1 closing string found");
+                    return new List<string>();
+                }
+
+                List<String> foundElementsList = new List<String>();
+
+                //Let's find the first opening and closing ocurrences of all
+
+                int posicionCursor = 0;
+
+                Debug.WriteLine(baseText);
+
+                while (true)
+                {
+                    int startingIndex = baseText.IndexOf(openingString, posicionCursor);
+
+                    if (startingIndex < 0) {
+
+                        break;
+                    }
+
+                    int endingIndex = baseText.IndexOf(closingString, startingIndex);
+                    int selectionLenght = endingIndex - startingIndex;
+
+                    Debug.WriteLine("baseText:" + baseText.Length);
+                    Debug.WriteLine("startingIndex:" + startingIndex);
+                    Debug.WriteLine("endingIndex:" + endingIndex);
+                    Debug.WriteLine("selectionLenght:" + selectionLenght);
+
+                    if (startingIndex == -1 || endingIndex == -1)
                     {
-                        endingIndex = startingIndex + argBaseText.ToLower().Substring(startingIndex).IndexOf(argClosingString.ToLower());
+                        break;
+                    }
 
-                        String foundElement = argBaseText.Substring(startingIndex + argOpeningString.Length, endingIndex - startingIndex - argOpeningString.Length);
+                    String result = argBaseText1.Substring(startingIndex, selectionLenght);
 
-                        if (trimResult)
-                        {
-                            foundElementsList.Add(foundElement.Trim());
-                        }
-                        else
-                        {
-                            foundElementsList.Add(foundElement);
-                        }
+                    posicionCursor = startingIndex + 1;                  
 
-                        argBaseText = argBaseText.Substring(endingIndex + argClosingString.Length);
+                    Debug.WriteLine(result);
+
+                    if (trimResult)
+                    {
+                        foundElementsList.Add(result.Trim());
                     }
                     else
                     {
-                        pendingToCheck = true;
+                        foundElementsList.Add(result);
                     }
                 }
 
                 return foundElementsList;
             }
-            catch
+            catch (Exception ex)
             {
-                return null;
+                Debug.WriteLine("getStringsBetweenStrings exception: " + ex);
+                return new List<string>();
             }
         }
 
