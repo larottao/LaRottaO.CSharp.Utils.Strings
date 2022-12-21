@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Text;
 using System.Text.RegularExpressions;
 
@@ -52,6 +53,94 @@ namespace LaRottaO.CSharp.StringUtilities
                 return null;
             }
             return argBaseText.Substring(posicionIni, posicionFin - posicionIni);
+        }
+
+        public static List<String> getStringsBetweenStringsBeta1(String argOpeningString, String argClosingString, String argBaseText, Boolean trimResult = false)
+        {
+            try
+            {
+                if (argBaseText == null ||
+                    argBaseText.Length < 3 ||
+                    argOpeningString.Length == 0 ||
+                    argClosingString.Length == 0)
+                {
+                    return new List<String>();
+                }
+
+                String baseText = argBaseText.ToLower();
+                String openingString = argOpeningString.ToLower();
+                String closingString = argClosingString.ToLower();
+
+                Debug.WriteLine("opening string:" + argOpeningString);
+                Debug.WriteLine("closing string:" + argClosingString);
+
+                if (!baseText.Contains(openingString))
+                {
+                    Debug.WriteLine("getStringsBetweenStrings: not even 1 opening string found");
+                    return new List<string>();
+                }
+
+                if (!baseText.Contains(closingString))
+                {
+                    Debug.WriteLine("getStringsBetweenStrings: not even 1 closing string found");
+                    return new List<string>();
+                }
+
+                List<String> foundElementsList = new List<String>();
+
+                //Let's find the first opening and closing ocurrences of all
+
+                int posicionCursor = 0;
+
+                Debug.WriteLine(baseText);
+
+                while (true)
+                {
+                    int startingIndex = baseText.IndexOf(openingString, posicionCursor) + openingString.Length;
+
+                    if (startingIndex < 0)
+                    {
+                        break;
+                    }
+
+                    int endingIndex = baseText.IndexOf(closingString, startingIndex);
+                    int selectionLenght = endingIndex - startingIndex;
+
+                    Debug.WriteLine("baseText:" + baseText.Length);
+                    Debug.WriteLine("startingIndex:" + startingIndex);
+                    Debug.WriteLine("endingIndex:" + endingIndex);
+                    Debug.WriteLine("selectionLenght:" + selectionLenght);
+
+                    if (startingIndex == -1 || endingIndex == -1)
+                    {
+                        break;
+                    }
+
+                    String result = "";
+
+                    result = argBaseText.Substring(startingIndex, selectionLenght);
+
+                    posicionCursor = endingIndex + 1;
+
+                    Debug.WriteLine(result);
+
+                    if (trimResult)
+                    {
+                        foundElementsList.Add(result.Trim());
+                    }
+                    else
+                    {
+                        foundElementsList.Add(result);
+                    }
+                }
+
+                return foundElementsList;
+            }
+            catch (Exception ex)
+            {
+                Debug.WriteLine("getStringsBetweenStrings exception: " + ex);
+                return new List<string>();
+            }
         }
 
         public static List<string> getStringsBetweenStrings(string argOpeningString, string argClosingString, string argBaseText, Boolean trimResult = false)
