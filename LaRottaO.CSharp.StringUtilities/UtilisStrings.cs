@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Diagnostics;
 using System.Text;
 using System.Text.RegularExpressions;
 
@@ -20,6 +19,13 @@ namespace LaRottaO.CSharp.StringUtilities
         ///
         /// </summary>
         ///
+
+        public static Boolean checkIfStringOnlyContainsLettersAndNumbers(String inputString)
+        {
+            Regex regex = new Regex("^[a-zA-Z0-9]+$");
+
+            return regex.IsMatch(inputString);
+        }
 
         public static string makeValidFileName(string argInvalidName)
         {
@@ -61,7 +67,7 @@ namespace LaRottaO.CSharp.StringUtilities
             {
                 if (argBaseText == null)
                 {
-                    return null;
+                    return new List<String>();
                 }
 
                 List<string> foundElementsList = new List<string>();
